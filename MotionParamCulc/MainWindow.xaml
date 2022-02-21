@@ -1,0 +1,1005 @@
+﻿<Window x:Class="MotionParamCulc.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MotionParamCulc"
+        mc:Ignorable="d"
+        Title="Расчёт параметров движения в единицах пользователя" Height="600" MaxHeight="960" 
+        Width="820" MaxWidth="820"
+        Background="Azure" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize" MouseDoubleClick="Window_MouseDoubleClick" 
+        Loaded="Window_Loaded">
+    <Window.Resources>
+
+
+    </Window.Resources>
+    
+    <ScrollViewer x:Name="scrollViewer1" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+        <StackPanel>
+        <Menu x:Name="menuMain" Height="Auto" HorizontalAlignment="Left" Background="Transparent">            
+            <MenuItem Header="?" VerticalContentAlignment="Center" 
+                      VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontStyle="Normal"
+                      Background="Transparent">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="2,2,2,1" TextWrapping="Wrap" 
+                        VerticalAlignment="Center" HorizontalAlignment="Left" 
+                      FontSize="14" FontWeight="Bold" FontStyle="Normal" TextAlignment="Left">
+                    <Run>Данная программа осуществляет пересчёт физических </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>единиц расстояния, скорости и ускорения в единицы </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>пользователя, принятые в контроллерах управления движением.</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>Также, содержит базовые теоретические основы, описывающие</Run> 
+                    <LineBreak></LineBreak>         
+                    <Run>процедуру пересчёта. </Run> 
+                    <LineBreak></LineBreak>
+                    <LineBreak></LineBreak>        
+                    <Run>Программа является бесплатной и может использоваться</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>любой категорией пользователей без каких-либо возрастных</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>ограничений. </Run>
+                    <LineBreak></LineBreak>
+                    <Run>Однако программу не разрешается размещать </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>на каких-либо сетевых ресурсах за исключением официального</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>публичного ресурса:</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>https://github.com/Deltronics </Run>       
+                    <LineBreak></LineBreak>         
+                    <LineBreak></LineBreak> 
+                    <Run>This Software can be used free of charge. </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>But it cannot be placed on any </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>Web resources except official public resource</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>https://github.com/Deltronics </Run> 
+                    <LineBreak></LineBreak>   
+                    <LineBreak></LineBreak>
+                    <Run>You can ask questions concerning this Software to </Run>
+                    <LineBreak></LineBreak>
+                    <Run>Vladimir Ostapov </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>ov@deltronics.ru</Run>
+                    <LineBreak></LineBreak>        
+                    </TextBlock>
+                        
+                     <TextBlock x:Name="textBlock6" Margin="2,2,2,1" TextWrapping="Wrap" 
+                        VerticalAlignment="Center" HorizontalAlignment="Center" 
+                      FontSize="14" FontWeight="Bold" FontStyle="Normal" TextAlignment="Center">
+                    <Run>www.deltronics.ru</Run>
+                    <LineBreak></LineBreak>                                     
+                    <Run>   2022 </Run>
+                     </TextBlock>
+                    </StackPanel>
+                </MenuItem>
+
+                <MenuItem Header="Тест" VerticalContentAlignment="Center" 
+                      VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontStyle="Normal"
+                      Background="Transparent" PreviewMouseLeftButtonDown="MenuItem_PreviewMouseLeftButtonDown">
+                </MenuItem>
+                <MenuItem Header="Сброс" VerticalContentAlignment="Center" 
+                      VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontStyle="Normal"
+                      Background="Transparent" PreviewMouseLeftButtonDown="MenuItem_PreviewMouseLeftButtonDown_1">
+                </MenuItem>
+            </Menu>
+            
+           
+            <TabControl x:Name="tabControl1" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                    Height="905" Width="780" Background="Azure" Margin="0,1,0,1">
+
+              
+                <TabItem x:Name="tabItem1"
+                         FontSize="14" FontWeight="Bold" FontStyle="Normal" Focusable="True"> 
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Входные данные</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel>
+                                            
+            <StackPanel x:Name="stackPanel1" Orientation="Vertical">            
+           
+            <StackPanel Orientation="Horizontal" MinWidth="790" MinHeight="130">
+
+            <Image x:Name="Image1" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2">
+            </Image>
+           <Image x:Name="Image2" Width="450" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
+            </Image>
+            <Image x:Name="Image3"  Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,2,2,2">
+            </Image>
+            
+        </StackPanel>
+                    
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="770" Height="80">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />                
+            </Grid.RowDefinitions>
+                    <TextBlock x:Name="textBlock1" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" 
+                       Text="Выберите единицы измерения расстояния" Margin="8,15,2,2"
+                       VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                    
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">        
+                       <TextBlock x:Name="textBlock5"  TextWrapping="NoWrap" 
+                       Text="микроны" Margin="2,12,2,2" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                        <RadioButton x:Name="radioButton1" Margin="15" HorizontalAlignment="Center"
+                                      IsChecked="True" Checked="radioButton1_Checked"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock7"  TextWrapping="NoWrap" 
+                       Text="миллиметры" Margin="2,12,2,2" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                        <RadioButton x:Name="radioButton2" Margin="15" HorizontalAlignment="Center"
+                                     Checked="radioButton2_Checked"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock8"  TextWrapping="NoWrap" 
+                       Text="сантиметры" Margin="2,12,2,2" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                        <RadioButton x:Name="radioButton3" Margin="15" HorizontalAlignment="Center"
+                                     Checked="radioButton3_Checked"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="4" Margin="2,2,2,2" Orientation="Vertical">
+                         <TextBlock x:Name="textBlock51"  TextWrapping="NoWrap" 
+                       Text="метры" Margin="2,12,2,2" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                          <RadioButton x:Name="radioButton4" Margin="15" HorizontalAlignment="Center"
+                                     Checked="radioButton4_Checked"/>
+                         </StackPanel>
+
+        </Grid>
+
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" Height="80">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="102"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,2,2,2" Orientation="Vertical">
+                <TextBlock x:Name="textBlock2" Margin="8,5,2,1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Введите расстояние, проходящее </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>конечным механизмом на один</Run>
+                    <LineBreak></LineBreak>
+                     <Run>оборот мотора сервопривода (0,0)</Run> 
+                </TextBlock>
+            </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox1" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,20,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox1_TextChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock9" FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,20,2,1" Text="мкм"/>
+                    </StackPanel>
+        </Grid>
+
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" 
+                      Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="102"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock20" Margin="8,5,2,1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Введите максимально допустимую </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>скорость вращения двигателя</Run>
+                    <LineBreak></LineBreak>
+                     <Run>в об/мин. Формат 0000,0</Run>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox6" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,20,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox6_TextChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock16" FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,20,2,1" Text="об/мин"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" 
+                      Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="102"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock21" Margin="8,5,2,1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Введите минимально допустимое </Run> 
+                    <LineBreak></LineBreak>
+                    <Run>ускорение/замедление</Run>
+                    <LineBreak></LineBreak>
+                     <Run>в миллисекундах. Формат 0000</Run>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox7" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,20,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox7_TextChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBlock x:Name="textBlock17" FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,20,2,1" Text="мс"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" 
+                      Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="102"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="textBlock3" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" 
+                               Margin="2,10,2,2" Text="{Binding MyText, Mode=OneWay}" 
+                           FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox2" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,20,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox2_TextChanged"/>
+                    </StackPanel>
+            
+                    <TextBlock x:Name="textBlock10" Grid.Row="0" Grid.Column="2" 
+                                   FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,5,2,1" Text="мкм"/>
+
+        </Grid>
+
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" 
+              Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="102"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="textBlock4" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" 
+                               Margin="2,10,2,2" Text="{Binding MyText2, Mode=OneWay}" 
+                           FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox3" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,18,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox3_TextChanged"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="textBlock11" Grid.Row="0" Grid.Column="2" 
+                                   FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,5,2,1" Text="об/мин"/>
+
+         </Grid>
+          
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" 
+                  Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="102"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="textBlock13" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" 
+                               Margin="2,10,2,2" Text="{Binding MyText3, Mode=OneWay}" 
+                           FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox4" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,18,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox4_TextChanged"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="textBlock12" Grid.Row="0" Grid.Column="2" 
+                                   FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,5,2,1" Text="мс"/>
+
+        </Grid>
+
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" Width="772" Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="102"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="textBlock15" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" 
+                               Margin="2,10,2,2" Text="{Binding MyText4, Mode=OneWay}" 
+                           FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" Orientation="Vertical">
+                        <TextBox x:Name="textBox5" MinWidth="300" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="8,18,2,1" BorderThickness="3" BorderBrush="Black"
+                                 TextChanged="textBox5_TextChanged"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="textBlock14" Grid.Row="0" Grid.Column="2" 
+                                   FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Margin="8,5,2,1" Text="мс"/>
+
+        </Grid>                
+
+                      <TextBlock Margin="2,10,2,1" TextWrapping="Wrap" 
+                        VerticalAlignment="Center" HorizontalAlignment="Left" 
+                      FontSize="18" FontWeight="Bold" FontStyle="Italic" TextAlignment="Left">
+                     <Run>Коэффициенты редукции (числитель и знаменатель) задания для привода</Run> 
+                    <LineBreak></LineBreak>
+                    <Run>введите во вкладке «Единицы для сервомотора».</Run> 
+                    <LineBreak></LineBreak>                    
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem x:Name="tabItem2" Header="Единицы для контроллера (PUU)"                          
+                         PreviewMouseLeftButtonDown="tabItem2_PreviewMouseLeftButtonDown"                         
+                         FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                    <StackPanel>
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" 
+                          Width="772" Height="280"
+                          Margin="1,10,1,1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="30"/>                            
+                        </Grid.RowDefinitions>
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,1,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock46" Margin="1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Задание позиции в PUU </Run> 
+                    <LineBreak></LineBreak>                    
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,1,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox22" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True" 
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="10,1,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock45" Margin="1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Задание скорости в PUU/с</Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,1,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox23" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock47" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Максимальная скорость в PUU/с </Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1" Margin="2,5,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox24" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="2" Margin="10,0,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock48" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Максимальное ускорение PUU/с2 </Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="3" Margin="2,5,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox25" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0" Margin="10,0,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock49" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Заданное ускорение PUU/с2 </Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="1" Margin="2,5,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox26" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="2" Margin="10,0,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock50" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Заданное замедлен. PUU/с2 </Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="3" Margin="2,5,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox27" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="0" Margin="10,0,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock52" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Параметр JERK PUU/с3 </Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="1" Margin="2,5,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox28" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="2" Margin="10,0,1,2" Orientation="Vertical">
+                            <TextBlock x:Name="textBlock53" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Количество оборотов </Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="3" Margin="2,5,1,2" Orientation="Vertical">
+                            <TextBox x:Name="textBox29" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>                                                
+                    </Grid>
+
+                        <StackPanel Margin="10,0,1,10" Orientation="Vertical" Width="710">
+                            <TextBlock x:Name="textBlock54" Margin="1,1,15,1" TextWrapping="Wrap" 
+                                       MinHeight="30" MinWidth="700"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Пример инструкции перемещения в заданную позицию для контроллеров движения 
+                         с интерфейсным управлением (EtherCAT, CANopen) с рассчитанными параметрами
+                     в единицах PUU</Run> 
+                    <LineBreak></LineBreak>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" ShowGridLines="False" 
+                          Width="670" Height="405"
+                          Margin="1,10,1,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="365"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="400"/>
+                            </Grid.RowDefinitions>
+
+                            <Image x:Name="Image4" Grid.Row="0" Grid.Column="1" Width="359" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" Margin="2">
+                        </Image>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="2" Width="290" Height="390">
+                                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" ShowGridLines="False" 
+                          Width="285" Height="385"
+                          Margin="1,10,1,1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="285"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="170"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+
+                         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0" Orientation="Vertical">
+                            <TextBox x:Name="textBox30" MinWidth="190" MinHeight="31" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0" Orientation="Vertical">
+                            <TextBox x:Name="textBox31" MinWidth="190" MinHeight="31" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                          </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0" Orientation="Vertical">
+                            <TextBox x:Name="textBox32" MinWidth="190" MinHeight="31" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0" Margin="0" Orientation="Vertical">
+                            <TextBox x:Name="textBox33" MinWidth="190" MinHeight="31" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="0" Margin="0" Orientation="Vertical">
+                            <TextBox x:Name="textBox34" MinWidth="190" MinHeight="31" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                        </StackPanel>                                    
+                                </Grid>
+                            </StackPanel>  
+                        </Grid>                          
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem x:Name="tabItem3" Header="Единицы для сервомотора"
+                          FontSize="14" FontWeight="Bold" FontStyle="Normal"
+                         PreviewMouseLeftButtonDown="tabItem3_PreviewMouseLeftButtonDown"
+                         PreviewKeyDown="tabItem3_PreviewKeyDown">
+                    <StackPanel Margin="10,5,1,10" Orientation="Vertical" Width="772" >
+                        <TextBlock x:Name="textBlock55" Margin="1,1,1,1" TextWrapping="Wrap" 
+                                       MinHeight="30" MinWidth="750"
+                           VerticalAlignment="Center" FontSize="16" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Мотор осуществляет вращение, отрабатывая задание по свому встроенному энкодеру.
+                     Количество импульсов, требуемое мотору для одного оборота, можно отмасштабировать 
+                     путём указания исходного количества импульсов на оборот, а также параметров числителя и знаменателя.
+                     В полях ниже необходимо ввести числитель и знаменатель, а также исходное количество
+                     имульсов на оборот по паспорту мотора. При нажатии Enter Форма рассчитает отмасштабированное
+                     количество импульсов на оборот, а тажке количество оборотов до переполнения
+                     регистра положения. Кроме того, будут рассчитаны количество импульсов для 
+                     прохождения заданного расстояния, скорость в имп/сек и требуемое количество  оборотов
+                     для выполнения задания перемещения на основании параметров введённых во вкладке
+                     "Входные данные". Если в полях появилось ############, то это означает, что параметр 
+                     превысил допустимое значение. Для позиции это число 2'147'483'647, для скорости заданная
+                    максимальная частота импульсного выхода контроллера.
+                     </Run> 
+                    <LineBreak></LineBreak>
+                        </TextBlock>
+
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" ShowGridLines="False" 
+                          Width="772" Height="280"
+                          Margin="1,10,1,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="2,1,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock56" Margin="1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Числитель </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="2,1,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox35" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="False" 
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"
+                                         TextChanged="textBox35_TextChanged"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="0" Grid.Column="2" Margin="10,1,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock57" Margin="1" TextWrapping="Wrap" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Знаменатель</Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="0" Grid.Column="3" Margin="2,1,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox36" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="False"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"
+                                         TextChanged="textBox36_TextChanged"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock58" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Исходное кол-во имп. на 1 об. </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="1" Margin="2,5,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox37" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="False"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"
+                                         TextChanged="textBox37_TextChanged"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="2" Margin="10,0,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock59" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Отмасштабиров. кол-во имп. на об. </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="3" Margin="2,5,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox38" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="0" Margin="10,0,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock60" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Заданная позиция в импульсах </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="1" Margin="2,5,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox39" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="2" Margin="10,0,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock61" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Скорость в имп/сек </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="3" Margin="2,5,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox40" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="6" Grid.Column="0" Margin="10,0,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock62" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Обороты до переполнения </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="6" Grid.Column="1" Margin="2,5,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox41" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="6" Grid.Column="2" Margin="10,0,1,2" Orientation="Vertical">
+                                <TextBlock x:Name="textBlock63" Margin="1" TextWrapping="Wrap" MinHeight="40"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Количество оборотов </Run> 
+                    <LineBreak></LineBreak>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="6" Grid.Column="3" Margin="2,5,1,2" Orientation="Vertical">
+                                <TextBox x:Name="textBox42" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock x:Name="textBlock64" Margin="1,1,1,1" TextWrapping="Wrap" 
+                                       MinHeight="30" MinWidth="700"
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                     <Run>Пример инструкции выдачи импульсов. Позиция - количество импульсов (S1). 
+                         Скорость - импульсы в секунду (S2). Контроллируйте, чтобы скорость была в 
+                         пределах возможностей импульсного выхода контроллера!
+                     </Run> 
+                    <LineBreak></LineBreak>
+                        </TextBlock>
+                        
+                        <StackPanel Orientation="Vertical" Margin="1" MinWidth="770" MinHeight="180">
+                            <Grid MinWidth="770">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="310"/>
+                                    <ColumnDefinition Width="245"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="175"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Grid.Column="0" Margin="2" Width="197" Height="170">
+                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Right" ShowGridLines="False" 
+                          Width="195" Height="170" Margin="1,10,1,1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="193"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="82"/>
+                                            <RowDefinition Height="32"/>
+                                            <RowDefinition Height="32"/>
+                                            
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0" Orientation="Vertical">
+                                            <TextBox x:Name="textBox44" MinWidth="190" MinHeight="31" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 TextAlignment="Right" IsReadOnly="True"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0" Orientation="Vertical">
+                                            <TextBox x:Name="textBox45" MinWidth="190" MinHeight="31" Text="0" 
+                     VerticalAlignment="Center" HorizontalAlignment="Right"
+                     TextAlignment="Right" IsReadOnly="True"
+                     FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                    Margin="1" BorderThickness="3" BorderBrush="Black"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                  <Image x:Name="Image5" Grid.Row="0" Grid.Column="1" Width="308" HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" Margin="0,12,1,1">
+                                </Image>
+                                <StackPanel Grid.Row="0" Grid.Column="2" Margin="10,1,1,1" MinWidth="245">
+                                    <TextBlock x:Name="textBlock65" Margin="1,5,1,1" TextWrapping="Wrap" 
+                                  MinHeight="30" 
+                           VerticalAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Italic">
+                           <Run>Введите максимальную частоту импульсного выхода контроллера (Гц)
+                           </Run> 
+                           <LineBreak></LineBreak>
+                                    </TextBlock>
+                                    <TextBox x:Name="textBox43" MinWidth="190" MinHeight="40" Text="0" 
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 TextAlignment="Right" IsReadOnly="False"
+                                 FontSize="18" FontWeight="Bold" FontStyle="Italic"
+                                 Margin="1" BorderThickness="3" BorderBrush="Black"/>
+
+                                </StackPanel>
+                            
+                            
+                            </Grid>
+                            
+                        </StackPanel> 
+                        
+                    </StackPanel>
+                </TabItem>
+                
+                <TabItem Header="Теория" FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                    <StackPanel>
+                        <TabControl Background="Beige" 
+                                    Height="870" Width="770" Margin="0,1,1,1">
+                            <TabItem Header="Стр. 1"
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="textBlock19" TextAlignment="Center" FontSize="18" 
+                               FontWeight="Bold" FontStyle="Normal" 
+                                   Foreground="DarkViolet"/>
+                                    <TextBlock x:Name="textBlock22" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <TextBlock x:Name="textBlock26" TextAlignment="Center" FontSize="18" 
+                               FontWeight="Bold" FontStyle="Normal" 
+                                   Foreground="DarkViolet"/>
+                                    <TextBlock x:Name="textBlock27" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <TextBlock x:Name="textBlock28" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Italic" Foreground="Blue"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Стр. 2"                                     
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="textBlock23" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                <TextBlock x:Name="textBlock29" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Italic" Foreground="Blue"/>
+                                    <TextBlock x:Name="textBlock30" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <TextBlock x:Name="textBlock31" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Italic" Foreground="Blue"/>
+                                    <TextBlock x:Name="textBlock32" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <TextBlock x:Name="textBlock33" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Italic" Foreground="Blue"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Стр. 3"                                     
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="textBlock34" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>                                    
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Стр. 4"
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="textBlock35" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <Image x:Name="Image6" Width="490" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,1,5">
+                                    </Image>
+                                    <TextBlock x:Name="textBlock36" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Стр. 5"
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="textBlock37" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <Image x:Name="Image7" Width="700" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,1,5">
+                                    </Image>
+                                    <TextBlock x:Name="textBlock38" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <TextBlock x:Name="textBlock39" TextAlignment="Center" FontSize="18" 
+                               FontWeight="Bold" FontStyle="Normal" 
+                                   Foreground="DarkViolet"/>
+                                    <TextBlock x:Name="textBlock40" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Стр. 6"
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="textBlock41" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Стр. 7"
+                                     FontSize="14" FontWeight="Bold" FontStyle="Normal">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="textBlock42" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                    <TextBlock x:Name="textBlock43" TextAlignment="Center" FontSize="18" 
+                               FontWeight="Bold" FontStyle="Normal" 
+                                   Foreground="DarkViolet"/>
+                                    <TextBlock x:Name="textBlock44" TextAlignment="Left" FontSize="16" 
+                               FontWeight="Bold" FontStyle="Normal"/>
+                                </StackPanel>
+                            </TabItem>
+                        </TabControl>
+
+                    </StackPanel>
+
+                </TabItem>
+
+            </TabControl>
+
+        </StackPanel>
+    
+    </ScrollViewer>
+</Window>
